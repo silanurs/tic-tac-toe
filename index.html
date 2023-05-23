@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel ="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ultra">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/578dda704c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form action="" class="form">
+        <label for="levels"></label>
+        <select name="levels" id="levels">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="unbeatable">Unbeatable</option>
+        </select>
+    </form>
+    <header>
+       <h1>TIC TAC TOE</h1>
+    </header>
+    <main>
+        
+        <div class="showPlayer">
+            <button type="button" class="player-sign">X</button>
+            <button type="button" class="player-sign">O</button>
+        </div>
+        <div class="game-board">
+            <div class="board" data-index="0">x</div>
+            <div class="board" data-index="1">o</div>
+            <div class="board" data-index="2">x</div>
+            <div class="board" data-index="3">0</div>
+            <div class="board" data-index="4">x</div>
+            <div class="board" data-index="5">x</div>
+            <div class="board" data-index="6">x</div>
+            <div class="board" data-index="7">x</div>
+            <div class="board" data-index="8">x</div>
+        </div>
+        
+    </main>
+   <footer>
+        <p>Copyright &copy; <script>
+            document.write(new Date().getFullYear())
+          </script> Silanurs  <a href="https://github.com/silanurs" target="_blank"><i class="fa-brands fa-github" style="color: #f3fc4c"></i></a></p>
+         
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
