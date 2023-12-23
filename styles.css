@@ -56,13 +56,17 @@ select {
     justify-content:center;
     align-items: center;
 }
-.player-sign {
+.player-x, .player-o{
    height: 30px;
    background-color: #24083d;
    color: var(--gameBoard);
    border: 1px solid var(--background);
 }
-.player-sign.active{
+
+.player-x.active {
+    border: 1px solid var(--gameBoard);
+}
+.player-o.active{
     border: 1px solid var(--gameBoard);
 }
 .board {
