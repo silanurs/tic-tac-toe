@@ -1,7 +1,16 @@
 const buttons= document.querySelectorAll('.board');
+const playerX = document.querySelector(".player-x");
+const playerO = document.querySelector(".player-o");
 const game = (function(){
-    const gameBoard = ["X","X","X","","","","","",""];
-    const setPlayer=()=>{}
+    const gameBoard = ["","","","","","","","",""];
+    const setPlayerX=()=>{
+        playerX.classList.add("active");
+        playerO.classList.remove("active")
+    }
+    const setPlayerO = ()=>{
+        playerO.classList.add("active");
+        playerX.classList.remove("active")
+    }
     const calculateWinner =()=>{
         let winningIndexes =
         [[0,1,2],[3,4,5],[6,7,8],
@@ -14,6 +23,8 @@ const game = (function(){
         }
         else if (winningIndexes.some(arr => arr.every((val, index) => val === oIndexes[index]))){
             return "O Won!"
+        } else {
+            return "It's a draw!"
         }
          
     } 
@@ -27,6 +38,8 @@ const game = (function(){
         return indexes;
 
     }
-    return {gameBoard,setPlayer, calculateWinner}
+    return {gameBoard,setPlayerX, setPlayerO, calculateWinner}
 })()
+playerX.addEventListener("click",game.setPlayerX)
+playerO.addEventListener("click", game.setPlayerO)
 console.log(game.calculateWinner())
