@@ -29,14 +29,7 @@ main {
     justify-content:center;
     align-content:center;
 }
-form {
-    display:flex;
-    justify-content:center;
-    margin-top: 4vh;
-}
-select {
-    width: 150px;
-}
+
 .game-board{
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -46,7 +39,6 @@ select {
 
 }
 .showPlayer{
-    grid-area:1/1/2/4;
     background-color: var(--background);
     color: var(--text);
     display:grid;
@@ -78,6 +70,10 @@ select {
     color: #24083d;
     font-size: 70px;
     user-select: none;
+}
+#message {
+    text-align:center;
+    font-size:1.5rem;
 }
 
 footer {
