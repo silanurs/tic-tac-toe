@@ -1,4 +1,4 @@
-const buttons= document.querySelectorAll('.board');
+const buttons= document.querySelector('.game-board');
 const playerX = document.querySelector(".player-x");
 const playerO = document.querySelector(".player-o");
 const game = (function(){
@@ -38,8 +38,16 @@ const game = (function(){
         return indexes;
 
     }
-    return {gameBoard,setPlayerX, setPlayerO, calculateWinner}
+    const handleClick = (e)=>{
+        gameBoard.splice(e.target.dataset.index,1,"X")
+        e.target.textContent= gameBoard[e.target.dataset.index]
+        console.log(e.target.textContent)
+        console.log(gameBoard)
+        console.log(calculateWinner())
+    }
+    return {gameBoard,setPlayerX, setPlayerO, calculateWinner, handleClick}
 })()
 playerX.addEventListener("click",game.setPlayerX)
 playerO.addEventListener("click", game.setPlayerO)
+buttons.addEventListener("click", game.handleClick)
 console.log(game.calculateWinner())
