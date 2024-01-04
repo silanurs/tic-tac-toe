@@ -61,6 +61,10 @@ main {
 .player-o.active{
     border: 1px solid var(--gameBoard);
 }
+@keyframes size {
+    from{font-size:7rem}
+    to {font-size:5rem}
+}
 .board {
     background: var(--gameBoard);
     border-radius: 20%;
@@ -68,9 +72,14 @@ main {
     justify-content:center;
     align-items:center;
     color: #24083d;
-    font-size: 70px;
+    font-size: 5rem;
     user-select: none;
 }
+.board.active{
+    animation-name:size;
+    animation-duration:1s;
+}    
+
 #message {
     text-align:center;
     font-size:1.5rem;

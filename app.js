@@ -41,6 +41,7 @@ const game = (function(){
     const handleClick = (e)=>{
         gameBoard.splice(e.target.dataset.index,1,"X")
         e.target.textContent= gameBoard[e.target.dataset.index]
+        e.target.classList.add("active")
         console.log(e.target.textContent)
         console.log(gameBoard)
         console.log(calculateWinner())
