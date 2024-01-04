@@ -1,15 +1,35 @@
 const buttons= document.querySelector('.game-board');
 const playerX = document.querySelector(".player-x");
 const playerO = document.querySelector(".player-o");
+const btns = Array.from(document.querySelectorAll(".board"))
 const game = (function(){
     const gameBoard = ["","","","","","","","",""];
     const setPlayerX=()=>{
         playerX.classList.add("active");
-        playerO.classList.remove("active")
+        playerO.classList.remove("active");
+        if(playerX.classList.contains("active")){
+            gameBoard.splice(0,9,"","","","","","","","","");
+            btns.forEach(btn => gameBoard.map(x=>btn.textContent=x))
+        } 
+        removeHandlerX();
+        playerO.addEventListener("click", game.setPlayerO)
     }
     const setPlayerO = ()=>{
         playerO.classList.add("active");
-        playerX.classList.remove("active")
+        playerX.classList.remove("active");
+        if(playerO.classList.contains("active")){
+            gameBoard.splice(0,9,"","","","","","","","","");
+            btns.forEach(btn => gameBoard.map(x=>btn.textContent=x))
+        } 
+        removeHandlerO()
+        playerX.addEventListener("click",game.setPlayerX)
+
+    }        
+    const removeHandlerX= ()=>{
+        playerX.removeEventListener("click",setPlayerX)
+    }
+    const removeHandlerO=()=>{
+        playerO.removeEventListener("click", setPlayerO)
     }
     const calculateWinner =()=>{
         let winningIndexes =
@@ -40,7 +60,7 @@ const game = (function(){
     }
     const handleClick = (e)=>{
         gameBoard.splice(e.target.dataset.index,1,"X")
-        e.target.textContent= gameBoard[e.target.dataset.index]
+        e.target.textContent=gameBoard[e.target.dataset.index]
         e.target.classList.add("active")
         console.log(e.target.textContent)
         console.log(gameBoard)
@@ -48,7 +68,8 @@ const game = (function(){
     }
     return {gameBoard,setPlayerX, setPlayerO, calculateWinner, handleClick}
 })()
-playerX.addEventListener("click",game.setPlayerX)
+
+
 playerO.addEventListener("click", game.setPlayerO)
 buttons.addEventListener("click", game.handleClick)
 console.log(game.calculateWinner())
