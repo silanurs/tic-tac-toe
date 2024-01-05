@@ -62,8 +62,12 @@ main {
     border: 1px solid var(--gameBoard);
 }
 @keyframes size {
-    from{font-size:7rem}
-    to {font-size:5rem}
+    from{
+        font-size:7rem
+    }
+    to {
+        font-size:5rem
+    }
 }
 .board {
     background: var(--gameBoard);
@@ -78,12 +82,57 @@ main {
 .board.active{
     animation-name:size;
     animation-duration:1s;
+}
+.board.active-computer{
+    animation-name:size;
+    animation-duration:2s;
 }    
 
 #message {
     text-align:center;
-    font-size:1.5rem;
+    font-size:4rem;
 }
+#restart {
+    text-align:center;
+    font-size:3rem;
+    font-family: "Ultra";
+    color: #ffff3e;
+    background-color:#24083d;
+    border:dotted #ffff3e;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.8;
+  }
+  
+.overlay.active {
+    display: block;
+}
+#endGamePart {
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 30vw;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: black;
+    text-align: center;
+    font-size: 30px;
+    user-select: none;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+  }
+  
+#endGamePart.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
 
 footer {
     width: 100%;
@@ -92,3 +141,9 @@ footer {
     display:flex;
     justify-content: center;
 }
+@media (max-width: 600px) {
+    #endGamePart{
+        width:70vw;
+        height:fit-content;
+    }
+  }
