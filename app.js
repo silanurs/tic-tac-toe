@@ -3,6 +3,9 @@ const playerX = document.querySelector(".player-x");
 const playerO = document.querySelector(".player-o");
 const btns = Array.from(document.querySelectorAll(".board"));
 const msg = document.getElementById("message");
+const endGamePart = document.getElementById("endGamePart");
+const overlay = document.querySelector(".overlay");
+const restart = document.getElementById("restart")
 
 const game = (function(){
     const gameBoard = [" "," "," "," "," "," "," "," "," "];
@@ -17,6 +20,8 @@ const game = (function(){
             gameBoard.splice(0,9," "," "," "," "," "," "," "," "," ");
             btns.forEach(btn => {
                 btn.textContent="";
+                btn.classList.remove("active");
+                btn.classList.remove("active-computer")
                 btn.addEventListener("click",handleClick)})
         } 
         removeHandlerX();
@@ -31,6 +36,8 @@ const game = (function(){
             gameBoard.splice(0,9," "," "," "," "," "," "," "," "," ");
             btns.forEach(btn => {
                 btn.textContent="";
+                btn.classList.remove("active");
+                btn.classList.remove("active-computer");
                 btn.addEventListener("click",handleClick)
             })
         } 
@@ -53,13 +60,25 @@ const game = (function(){
         let xIndexes = getAllIndexes(gameBoard, "X");
         let oIndexes = getAllIndexes(gameBoard, "O");
         if(winningIndexes.some(arr => arr.every((val, index) => val === xIndexes[index]))){
+            overlay.classList.add("active");
+            endGamePart.classList.add("active");
             msg.textContent= "X Won!"
         }
         else if (winningIndexes.some(arr => arr.every((val, index) => val === oIndexes[index]))){
+            overlay.classList.add("active");
+            endGamePart.classList.add("active");
             msg.textContent= "O Won!"
         } 
+        else if(winningIndexes.some(arr => arr.every((val, index) => val === xIndexes[index])) &&
+        winningIndexes.some(arr => arr.every((val, index) => val === oIndexes[index]))){
+            overlay.classList.add("active");
+            endGamePart.classList.add("active");
+            msg.textContent="It's a draw!";
+        }
         else if(!gameBoard.includes(" ")){
-            msg.textContent="It's a draw!"
+            overlay.classList.add("active");
+            endGamePart.classList.add("active");
+            msg.textContent="It's a draw!";
         }
          
     } 
@@ -74,35 +93,19 @@ const game = (function(){
 
     }
     const compChoice = (arr)=>{
-        if(player==="X"){        
-            let indexes =[];
-            for (let i=0;i<arr.length;i++){
-                if(arr[i]===" "){
-                    indexes.push(i)
-                }
+        let indexes =[];
+        for (let i=0;i<arr.length;i++){
+            if(arr[i]===" "){
+                indexes.push(i)
             }
-            let length =indexes.length
-            let compIndex=Math.floor(Math.random()*length)
-            let x = indexes[compIndex] 
-            arr[x]=computer;  
-            let target = document.querySelector(`[data-index="${x}"]`);
-            target.textContent=computer;
-            target.classList.add("active");  
-        }else {
-            let indexes =[];
-            for (let i=0;i<arr.length;i++){
-                if(arr[i]===" "){
-                    indexes.push(i)
-                }
-            }
-            let length =indexes.length
-            let compIndex=Math.floor(Math.random()*length)
-            let x = indexes[compIndex] 
-            arr[x]=computer;  
-            let target = document.querySelector(`[data-index="${x}"]`);
-            target.textContent=computer;
-            target.classList.add("active");  
         }
+        let length =indexes.length
+        let compIndex=Math.floor(Math.random()*length)
+        let x = indexes[compIndex] 
+        arr[x]=computer;  
+        let target = document.querySelector(`[data-index="${x}"]`);
+        target.textContent=computer;
+        target.classList.add("active-computer");  
         
     }
 
@@ -117,8 +120,8 @@ const game = (function(){
             let index = e.target.dataset.index;
             let target = e.target;
             updateArray(gameBoard,index,target)
-            compChoice(gameBoard);
             calculateWinner()
+            compChoice(gameBoard);
             e.target.removeEventListener("click", handleClick)
         } else {
             e.target.removeEventListener("click", handleClick)
@@ -137,9 +140,27 @@ const game = (function(){
 
     }
     }
+    const restart =()=>{
+        gameBoard.splice(0,9," "," "," "," "," "," "," "," "," ");
+        btns.map(btn => {
+            btn.textContent="";
+            btn.addEventListener("click",handleClick);
+            btn.classList.remove("active");
+            btn.classList.remove("active-computer");
+})
+overlay.classList.remove("active");
+endGamePart.classList.remove("active");
+playerO.classList.remove("active");
+playerX.classList.add("active");
+playerX.removeEventListener("click", setPlayerX);
+playerO.addEventListener("click",setPlayerO)
+player="X";
+computer="O"
+    }
    
-    return {gameBoard,setPlayerX, setPlayerO, calculateWinner, handleClick}
+    return {setPlayerX, setPlayerO, calculateWinner, handleClick,restart}
 })()
 
 btns.map(btn => btn.addEventListener("click", game.handleClick))
 playerO.addEventListener("click", game.setPlayerO);
+restart.addEventListener("click", game.restart)
